@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="protected" author="true" classpath="lib/mysql-connector-java-5.1.14-bin.jar;lib/weka.jar" destdir="doc" doctitle="Javadoc OLAPBIRCH" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="birch.cf_tree.cf_node,birch.util.distance,birch.util.database,birch.util,birch.cf_tree.cf_node.cf_entry,dbscan,birch,birch.cf_tree" source="1.6" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

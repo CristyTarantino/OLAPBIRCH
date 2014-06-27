@@ -1,0 +1,47 @@
+<Schema name="tpch">
+  <Cube name="tpchCube" cache="true" enabled="true">    
+	
+	<Table name="lineitem">
+    </Table>
+	
+	<Dimension type="StandardDimension" name="Orders" foreignKey="l_orderkey" highCardinality="false">
+		<Hierarchy name="Orders" hasAll="true" AllMemberName="All Customers" primaryKey="o_orderkey" primaryKeyTable="orders">
+			<Join leftKey="o_custkey" rightAlias="customer" rightKey="c_custkey">
+				<Table name="orders">
+				</Table>
+				<Join leftAlias="customer" leftKey="c_nationkey" rightAlias="c_nation" rightKey="n_nationkey">
+					<Table name="customer">
+					</Table>
+					<Join leftAlias="c_nation" leftKey="n_regionkey" rightAlias="c_region" rightKey="r_regionkey">
+						<Table name="nation" alias="c_nation"> 
+						</Table> 
+						<Table name="region" alias="c_region"> 
+						</Table>
+					</Join>
+				</Join>
+			</Join>
+			<Level name="Region" table="c_region" column="r_name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			<Level name="Nation" table="c_nation" column="n_name" type="String" uniqueMembers="true" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			<Level name="Customer" table="customer" column="c_name" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+			</Level>
+			
+			<Attribute name="totalprice" table="orders" column="o_totalprice" nameColumn="o_totalprice" type="Integer"/>
+			<Attribute name="orderpriority" table="orders" column="o_orderpriority" nameColumn="o_orderpriority" type="Integer" />
+			<Depth value="20"/>
+			
+		</Hierarchy>
+	</Dimension>
+	
+	<Measure name="quantity" column="l_quantity" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="extendedprice" column="l_extendedprice" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="discount" column="l_discount" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="tax" column="l_tax" datatype="Numeric" aggregator="distinct-count" visible="true">
+    </Measure>
+	
+  </Cube>
+</Schema>
